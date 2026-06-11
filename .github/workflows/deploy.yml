@@ -1,6 +1,5 @@
 name: Deploy to HuggingFace Spaces
 
-# GitHubのmainブランチにpushされたときに自動実行
 on:
   push:
     branches:
@@ -8,19 +7,21 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # GitHubが用意するLinux環境で実行
+    runs-on: ubuntu-latest
 
     steps:
-      # このリポジトリのコードを取得
+      # 履歴を全て取得（shallowクローンを防ぐ）
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-      # HuggingFace SpaceのリポジトリにPush
-      # HF_TOKENはGitHub Secretsに登録したトークン
       - name: Push to HuggingFace Spaces
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Actions"
+          # LFSを無効化してpush
+          git config --global lfs.https://huggingface.co/.skipdownload true
           git push --force https://user:${HF_TOKEN}@huggingface.co/spaces/yusei68/AI-note main
