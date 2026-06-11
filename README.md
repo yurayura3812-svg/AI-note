@@ -10,6 +10,7 @@ pinned: false
 # AI学習ノート生成アプリ
 
 **デモ：** https://huggingface.co/spaces/yusei68/AI-note
+<img width="783" height="809" alt="image" src="https://github.com/user-attachments/assets/f83ec8cb-45ab-47e1-9f8a-be791ec566c4" />
 
 ---
 
