@@ -1,0 +1,26 @@
+name: Deploy to HuggingFace Spaces
+
+# GitHubのmainブランチにpushされたときに自動実行
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # GitHubが用意するLinux環境で実行
+
+    steps:
+      # このリポジトリのコードを取得
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # HuggingFace SpaceのリポジトリにPush
+      # HF_TOKENはGitHub Secretsに登録したトークン
+      - name: Push to HuggingFace Spaces
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Actions"
+          git push https://user:${HF_TOKEN}@huggingface.co/spaces/あなたのHFユーザー名/あなたのSpace名 main
