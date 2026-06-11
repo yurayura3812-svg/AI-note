@@ -1,4 +1,5 @@
-gradio>=4.0.0
+gradio>=6.17.3
 groq>=0.9.0
 python-dotenv>=1.0.0
 pydub>=0.25.1
+pyaudioop>=0.1.0
